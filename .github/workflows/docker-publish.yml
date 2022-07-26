@@ -36,6 +36,7 @@ jobs:
       uses: docker/setup-buildx-action@v2
 
     - name: Log into ghcr.io
+      # https://github.com/marketplace/actions/docker-login
       uses: docker/login-action@master
       with:
         registry: ghcr.io
@@ -44,12 +45,14 @@ jobs:
   
     - name: Extract Docker metadata
       id: meta
-      uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+      # https://github.com/marketplace/actions/docker-metadata-action
+      uses: docker/metadata-action@v4
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
     - name: Build and push container image
       id: push-step
+      # https://github.com/marketplace/actions/build-and-push-docker-images
       uses: docker/build-push-action@master
       with:
         push: true
@@ -60,5 +63,4 @@ jobs:
       env:
         COSIGN_EXPERIMENTAL: "true"
       run: cosign sign ${{ steps.meta.outputs.tags }}@${{ steps.push-step.outputs.digest }}
-      # run: cosign sign ghcr.io/${{ github.repository }}@${{ steps.push-step.outputs.digest }}
 
