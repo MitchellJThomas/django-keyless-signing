@@ -3,8 +3,6 @@ name: Publish and Sign Container Image
 env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
-  # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ github.repository }}
 
 on:
   schedule:
@@ -52,7 +50,7 @@ jobs:
       # handles mixed case github repos such as MitchellJThomas
       uses: docker/metadata-action@v4
       with:
-        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        images: ${{ env.REGISTRY }}/${{ github.repository }}
 
     - name: Build and push container image
       id: push-step
