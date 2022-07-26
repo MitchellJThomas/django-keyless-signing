@@ -12,14 +12,12 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
       id-token: write
-
-  steps:
+    steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
