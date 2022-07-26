@@ -1,5 +1,11 @@
 name: Publish and Sign Container Image
 
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: ghcr.io
+  # github.repository as <account>/<repo>
+  IMAGE_NAME: ${{ github.repository }}
+
 on:
   schedule:
     - cron: '32 11 * * *'
