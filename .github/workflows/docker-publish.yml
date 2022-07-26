@@ -37,11 +37,11 @@ jobs:
       # https://github.com/marketplace/actions/docker-setup-buildx
       uses: docker/setup-buildx-action@v2
 
-    - name: Log into ghcr.io
+    - name: Log into ${{ env.REGISTRY }}
       # https://github.com/marketplace/actions/docker-login
       uses: docker/login-action@master
       with:
-        registry: ghcr.io
+        registry: ${{ env.REGISTRY }}
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
   
