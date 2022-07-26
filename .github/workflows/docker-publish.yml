@@ -59,5 +59,6 @@ jobs:
     - name: Sign the container image
       env:
         COSIGN_EXPERIMENTAL: "true"
-      run: cosign sign ghcr.io/${{ github.repository }}@${{ steps.push-step.outputs.digest }}
+      run: cosign sign ${{ steps.push-step.outputs.image.name }}@${{ steps.push-step.outputs.containerimage.digest }}
+      # run: cosign sign ghcr.io/${{ github.repository }}@${{ steps.push-step.outputs.digest }}
 
