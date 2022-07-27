@@ -62,11 +62,10 @@ jobs:
         labels: ${{ steps.meta.outputs.labels }}
 
     - name: Sign the container image
+      shell: bash
       env:
         COSIGN_EXPERIMENTAL: "true"
       run: |
-        tags="${{ steps.meta.outputs.tags }}"
-        for tag in ${tags//$'\n'/ }
-        do
-          cosign sign $tag@${{ steps.push-step.outputs.digest }}
-        done
+        tags=( ${{ steps.meta.outputs.tags }} )
+        tag=${tags[0]}
+        cosign sign $tag@${{ steps.push-step.outputs.digest }}
