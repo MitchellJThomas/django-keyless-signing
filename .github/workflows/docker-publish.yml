@@ -68,4 +68,5 @@ jobs:
       run: |
         tags=( ${{ steps.meta.outputs.tags }} )
         tag=${tags[0]}
+        echo "Signing image with tag $tag"
         cosign sign $tag@${{ steps.push-step.outputs.digest }}
