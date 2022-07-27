@@ -65,7 +65,8 @@ jobs:
       env:
         COSIGN_EXPERIMENTAL: "true"
       run: |
-        for tag in $( tr '\n' ' ' <<< ${{ steps.meta.outputs.tags }} )
+        tags=${{ steps.meta.outputs.tags }}
+        for tag in ${tags//$'\n'/ }
         do
           cosign sign $tag@${{ steps.push-step.outputs.digest }}
         done
